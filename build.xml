@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="org.pathvisio.minimap" default="jar" basedir=".">
+
+	<property name="jar.name" value="org.pathvisio.minimap.jar" />
+	
+	<property name="pathvisio.dir" value="../../pv-trunk/"/>  
+
+	<path id="project.class.path">
+		<fileset dir="${pathvisio.dir}/modules">
+			<include name="org.pathvisio.core.jar"/>
+			<include name="org.pathvisio.gui.jar"/>
+			<include name="org.pathvisio.desktop.jar"/>
+		</fileset>
+		<fileset dir="${pathvisio.dir}/lib">
+			<include name="felix.jar"/>
+		</fileset>
+	</path>
+		
+	<target name="prepare">
+		<mkdir dir="dist"/>
+		<mkdir dir="build"/>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<echo>Compiling: ${jar.name}</echo>
+		<javac srcdir="src"
+			   includes="**"
+			   destdir="build"
+			   debug="${debug.mode}"
+			   source="1.5">
+       			<classpath refid="project.class.path"/>
+		</javac>
+	</target>
+		
+	<target name="jar" depends="compile"> 
+		<echo>Creating JAR: ${jar.name}</echo>
+		<jar jarfile="dist/${jar.name}" manifest="META-INF/MANIFEST.MF">
+			<fileset dir="build">
+				<include name="**/*"/>
+			</fileset>
+        	</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
+	<target name="dist-clean" depends="clean">
+		<delete dir="dist"/>
+	</target>
+</project>
