@@ -1,10 +1,12 @@
 package org.pathvisio.minimap;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Stroke;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
@@ -71,6 +73,7 @@ public class MiniMapPanel extends JPanel implements AdjustmentListener, VPathway
 		if(v ==null) {
 			return;
 		}
+		g.setStroke(new BasicStroke(10));
 		g.setColor(Color.RED);
 		g.drawRect(v.getViewPosition().x, v.getViewPosition().y, v.getWidth(), v.getHeight());
 	}
